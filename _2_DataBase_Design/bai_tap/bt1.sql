@@ -19,10 +19,10 @@ references customers(customer_number)
 );
 create table transactions(
 tran_number int primary key,
-account_number int,
+account_number int not null,
 tran_date date,
 amounts int,
 descriptions varchar(50),
-foreign key(customer_number )
-references customers(customer_number)
+foreign key(account_number )
+references accounts(account_number)
 );
