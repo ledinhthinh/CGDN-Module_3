@@ -1,0 +1,1 @@
+select * from bai3_bt.bang1 where TEN = 'Huong';
