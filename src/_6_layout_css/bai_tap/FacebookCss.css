@@ -1,0 +1,64 @@
+#head{
+    height: 50px;
+    background-color: white;
+    border: 1px solid black;
+    margin-bottom: 5px;
+    position: static;
+}
+#logo{
+    position: fixed;
+}
+input{
+    margin-top: 6px;
+    margin-left: 50px;
+    position: fixed;
+}
+#logohome{
+    margin-left: 30%;
+    position: fixed;
+}
+#logotrang{
+    margin-left: 35%;
+    position: fixed;
+}
+#logowatch{
+    margin-left: 40%;
+    position: fixed;
+}
+#logomarket{
+    margin-left: 45%;
+    position: fixed;
+}
+#logomenu{
+    margin-left: 50%;
+    position: fixed;
+}
+
+#left{
+    width: 300px;
+    min-height: 400px;
+    border: 1px solid #CDCDCD;
+    float:left;
+    background-color: white;
+    margin-bottom: 5px;
+}
+
+#content{
+    width: 645px;
+    min-height: 400px;
+    border: 1px solid #CDCDCD;
+    float:left;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+
+}
+
+#right{
+    width: 234px;
+    min-height: 400px;
+    border: 1px solid #CDCDCD;
+    float:right;
+    margin-bottom: 5px;
+}
+
