@@ -1,11 +1,11 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="java-web-mvc:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/java_web_mvc_war_exploded</output-path>
+  <artifact type="exploded-war" name="web_user:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/web_user_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="java-web-mvc/web/Web" />
+      <element id="javaee-facet-resources" facet="web_user/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="java-web-mvc" />
+          <element id="module-output" name="web_user" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="jstl-1.2" />

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: ledinhthinh
-  Date: 12/17/2020
-  Time: 11:46
+  Date: 12/18/2020
+  Time: 16:11
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,7 +16,7 @@
 <div style="text-align: center;">
     <h1>User Management</h1>
     <h2>
-        <a href="user?action=users">List All Users</a>
+        <a href="users?action=users">List All Users</a>
     </h2>
 </div>
 <div align="center">

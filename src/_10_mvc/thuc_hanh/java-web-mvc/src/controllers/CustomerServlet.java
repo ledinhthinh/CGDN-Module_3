@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@javax.servlet.annotation.WebServlet(name = "CustomerServlet",urlPatterns ="/customers")
+    @javax.servlet.annotation.WebServlet(name = "CustomerServlet",urlPatterns ="/customers")
 public class CustomerServlet extends javax.servlet.http.HttpServlet {
     private CustomerService customerService = new CustomerServiceImpl();
 

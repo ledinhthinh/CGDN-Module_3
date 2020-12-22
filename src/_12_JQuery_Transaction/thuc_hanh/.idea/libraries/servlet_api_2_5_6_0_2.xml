@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="jstl-1.2">
+  <library name="servlet-api-2.5-6.0.2">
     <CLASSES>
-      <root url="jar://D:/library/jstl-1.2.jar!/" />
+      <root url="jar://D:/library/servlet-api-2.5-6.0.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
