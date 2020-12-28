@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ICustomerDAO {
+    CustomerDAO customerDAO =new CustomerDAO();
     public void insertCustomer(Customer customer) throws SQLException;
 
     public Customer selectCustomer(int id);

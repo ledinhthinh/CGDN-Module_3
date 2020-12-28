@@ -13,12 +13,12 @@
     <title>User Management Application</title>
 </head>
 <body>
-<center>
+<div style="text-align: center;">
     <h1>User Management</h1>
     <h2>
         <a href="user?action=users">List All Users</a>
     </h2>
-</center>
+</div>
 <div align="center">
     <form method="post">
         <table border="1" cellpadding="5">

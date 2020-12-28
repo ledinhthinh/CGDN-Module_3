@@ -1,7 +1,7 @@
 package model;
 
 public class Customer {
-    private int id;
+    private String id;
     private String name;
     private String birthday;
     private String gender;
@@ -9,9 +9,9 @@ public class Customer {
     private String phone;
     private String email;
     private String address;
-    private String customer_type_id;
+    private CustomerType customer_type;
 
-    public Customer(int id, String name, String birthday, String gender, String id_card, String phone, String email, String address, String customer_type_id) {
+    public Customer(String id, String name, String birthday, String gender, String id_card, String phone, String email, String address, CustomerType customer_type) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
@@ -20,10 +20,10 @@ public class Customer {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.customer_type_id = customer_type_id;
+        this.customer_type = customer_type;
     }
 
-    public Customer(String name, String birthday, String gender, String id_card, String phone, String email, String address, String customer_type_id) {
+    public Customer(String name, String birthday, String gender, String id_card, String phone, String email, String address, CustomerType customer_type) {
         this.name = name;
         this.birthday = birthday;
         this.gender = gender;
@@ -31,19 +31,25 @@ public class Customer {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.customer_type_id = customer_type_id;
+        this.customer_type = customer_type;
     }
 
     public Customer() {
     }
-
-
-
-    public int getId() {
+    public String getIdCustomer() {
         return id;
     }
 
-    public void setId(int id) {
+    public CustomerType getCustomerType() {
+        return customer_type;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -103,11 +109,11 @@ public class Customer {
         this.address = address;
     }
 
-    public String getCustomer_type_id() {
-        return customer_type_id;
+    public CustomerType getCustomer_type() {
+        return customer_type;
     }
 
-    public void setCustomer_type_id(String customer_type_id) {
-        this.customer_type_id = customer_type_id;
+    public void setCustomer_type(CustomerType customer_type) {
+        this.customer_type = customer_type;
     }
 }

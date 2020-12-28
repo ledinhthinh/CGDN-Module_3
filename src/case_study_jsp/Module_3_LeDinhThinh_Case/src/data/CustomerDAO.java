@@ -1,6 +1,7 @@
 package data;
 
 import model.Customer;
+import model.CustomerType;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,9 +11,10 @@ public class CustomerDAO {
     private static String jdbcURL = "jdbc:mysql://localhost:3306/furama_resort?useSSL=false";
     private static String jdbcUsername = "root";
     private static String jdbcPassword = "05122002";
+    private static CustomerTypeDAO customerTypeDAO = new CustomerTypeDAO();
 
-    private static final String INSERT_CUSTOMERS_SQL = "INSERT INTO customer" + "(customer_name,customer_birthday,customer_gender,customer_id_card,customer_phone,customer_email,customer_address,customer_type_id) values"
-            + "(?,?,?,?,?,?,?,?);";
+    private static final String INSERT_CUSTOMERS_SQL = "INSERT INTO customer" + "(customer_id,customer_name,customer_birthday,customer_gender,customer_id_card,customer_phone,customer_email,customer_address,customer_type_id) values"
+            + "(?,?,?,?,?,?,?,?,?);";
 
     private static final String SELECT_CUSTOMER_BY_ID = "select customer_id,customer_name,customer_birthday,customer_gender,customer_id_card,customer_phone,customer_email,customer_address,customer_type_id from customer where customer_id=?";
     private static final String SELECT_ALL_CUSTOMER = "select * from customer";
@@ -40,14 +42,15 @@ public class CustomerDAO {
     public static void insertCustomer(Customer customer) throws SQLException{
         System.out.println(INSERT_CUSTOMERS_SQL);
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CUSTOMERS_SQL);) {
-            preparedStatement.setString(1, customer.getName());
-            preparedStatement.setString(2, customer.getBirthday());
-            preparedStatement.setString(3, customer.getGender());
-            preparedStatement.setString(4, customer.getId_card());
-            preparedStatement.setString(5, customer.getPhone());
-            preparedStatement.setString(6, customer.getEmail());
-            preparedStatement.setString(7, customer.getAddress());
-            preparedStatement.setString(8, customer.getCustomer_type_id());
+            preparedStatement.setString(1, customer.getId());
+            preparedStatement.setString(2, customer.getName());
+            preparedStatement.setString(3, customer.getBirthday());
+            preparedStatement.setString(4, customer.getGender());
+            preparedStatement.setString(5, customer.getId_card());
+            preparedStatement.setString(6, customer.getPhone());
+            preparedStatement.setString(7, customer.getEmail());
+            preparedStatement.setString(8, customer.getAddress());
+            preparedStatement.setInt(9, customer.getCustomer_type().getIdCustomerType());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -55,10 +58,10 @@ public class CustomerDAO {
         }
     }
 
-    public Customer selectCustomer(int customer_id) throws SQLException{
+    public static Customer selectCustomer(String customer_id) throws SQLException{
         Customer customer = null;
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CUSTOMER_BY_ID)) {
-            preparedStatement.setInt(1, customer_id);
+            preparedStatement.setString(1, customer_id);
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -70,9 +73,9 @@ public class CustomerDAO {
                 String customer_phone = rs.getString("customer_phone");
                 String customer_email = rs.getString("customer_email");
                 String customer_address = rs.getString("customer_address");
-                String customer_type_id = rs.getString("customer_type_id");
+                CustomerType customer_type = customerTypeDAO.selectTypeNote(rs.getInt("customer_type_id"));
                 customer = new Customer(customer_id, customer_name, customer_birthday, customer_gender, customer_id_card,
-                        customer_phone, customer_email, customer_address, customer_type_id);
+                        customer_phone, customer_email, customer_address, customer_type);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,7 +89,7 @@ public class CustomerDAO {
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int customer_id = rs.getInt("customer_id");
+                String customer_id = rs.getString("customer_id");
                 String customer_name = rs.getString("customer_name");
                 String customer_birthday = rs.getString("customer_birthday");
                 String customer_gender = rs.getString("customer_gender");
@@ -94,9 +97,9 @@ public class CustomerDAO {
                 String customer_phone = rs.getString("customer_phone");
                 String customer_email = rs.getString("customer_email");
                 String customer_address = rs.getString("customer_address");
-                String customer_type_id = rs.getString("customer_type_id");
+                CustomerType customer_type = customerTypeDAO.selectTypeNote(rs.getInt("customer_type_id"));
                 customers.add(new Customer(customer_id, customer_name, customer_birthday, customer_gender, customer_id_card,
-                        customer_phone, customer_email, customer_address, customer_type_id));
+                        customer_phone, customer_email, customer_address, customer_type));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,10 +108,10 @@ public class CustomerDAO {
     }
 
 
-    public boolean deleteCustomer(int customer_id)throws SQLException{
+    public static boolean deleteCustomer(String customer_id)throws SQLException{
         boolean rowDeleted = false;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_CUSTOMER_SQL);) {
-            statement.setInt(1, customer_id);
+            statement.setString(1, customer_id);
             rowDeleted = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,7 +120,7 @@ public class CustomerDAO {
     }
 
 
-    public boolean updateCustomer(Customer customer) throws SQLException {
+    public static boolean updateCustomer(Customer customer) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CUSTOMER_SQL);) {
             preparedStatement.setString(1, customer.getName());
@@ -127,14 +130,14 @@ public class CustomerDAO {
             preparedStatement.setString(5, customer.getPhone());
             preparedStatement.setString(6, customer.getEmail());
             preparedStatement.setString(7, customer.getAddress());
-            preparedStatement.setString(8, customer.getCustomer_type_id());
-            preparedStatement.setInt(9, customer.getId());
+            preparedStatement.setInt(8, customer.getCustomer_type().getIdCustomerType());
+            preparedStatement.setString(9, customer.getId());
 
             rowUpdated = preparedStatement.executeUpdate() > 0;
         }
         return rowUpdated;
     }
-    private void printSQLException(SQLException ex) {
+    private static void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
                 e.printStackTrace(System.err);
